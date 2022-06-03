@@ -66,7 +66,7 @@ const CreateMembership = () => {
 
     useEffect(() => {
         const token = localStorage.getItem("Token")
-        axios.get('http://localhost:5000/api/v1/readPackageName', {
+        axios.get('https://vast-journey-49790.herokuapp.com/api/v1/readPackageName', {
 
             headers: {
                 'token-key': `${token}`
@@ -82,7 +82,7 @@ const CreateMembership = () => {
                 cogoToast.error(`${error.message}`);
             })
 
-        axios.get('http://localhost:5000/api/v1/readMemberName', {
+        axios.get('https://vast-journey-49790.herokuapp.com/api/v1/readMemberName', {
             headers: {'token-key': `${token}`}
         }).then(function (response) {
                 setMemberName(response.data.data)
@@ -90,7 +90,7 @@ const CreateMembership = () => {
             .catch(function (error) {
                 cogoToast.error(`${error.message}`);
             })
-        axios.get('http://localhost:5000/api/v1/readTrainersName', {
+        axios.get('https://vast-journey-49790.herokuapp.com/api/v1/readTrainersName', {
             headers: {'token-key': `${token}`}
         }).then(function (response) {
                 setTrainerName(response.data.data)
@@ -104,7 +104,7 @@ const CreateMembership = () => {
         console.log(values);
         console.log(values.startDate._d);
         const token = localStorage.getItem("Token")
-        axios.post('http://localhost:5000/api/v1/createMembership',
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/createMembership',
             values
             , {
                 headers: {

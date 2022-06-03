@@ -15,7 +15,7 @@ const AllPackages = () => {
     const [loading,setLoading] = useState(true)
     useEffect(() => {
         const token = localStorage.getItem("Token")
-        axios.get('http://localhost:5000/api/v1/readPackage', {
+        axios.get('https://vast-journey-49790.herokuapp.com/api/v1/readPackage', {
             headers: {
                 'token-key': `${token}`
             }
@@ -40,7 +40,7 @@ const AllPackages = () => {
             onOk() {
         const token = localStorage.getItem("Token")
 
-        axios.post('http://localhost:5000/api/v1/deletePackage', 
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/deletePackage', 
             {
                 id:id
             }

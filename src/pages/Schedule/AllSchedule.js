@@ -15,7 +15,7 @@ const AllSchedule = () => {
     const [loading,setLoading] = useState(true)
     useEffect(() => {
         const token = localStorage.getItem("Token")
-        axios.get('http://localhost:5000/api/v1/readSchedule', {
+        axios.get('https://vast-journey-49790.herokuapp.com/api/v1/readSchedule', {
             headers: {
                 'token-key': `${token}`
             }
@@ -41,7 +41,7 @@ const AllSchedule = () => {
             onOk() {
         const token = localStorage.getItem("Token")
 
-        axios.post('http://localhost:5000/api/v1/deleteSchedule', 
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/deleteSchedule', 
             {
                 id:id
             }

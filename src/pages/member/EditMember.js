@@ -72,7 +72,7 @@ const EditMember = () => {
     useEffect(()=>{
         setLoading(true)
         const token = localStorage.getItem("Token")
-        axios.post('http://localhost:5000/api/v1/readMemberById', 
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/readMemberById', 
             {
                 id:id
             }
@@ -106,7 +106,7 @@ const EditMember = () => {
             id:id
         }
         // console.log(newValues);
-        axios.post('http://localhost:5000/api/v1/updateMember', 
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/updateMember', 
         newValues
         , {
             headers: {

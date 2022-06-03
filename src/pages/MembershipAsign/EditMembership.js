@@ -74,7 +74,7 @@ const EditMembership = () => {
 
     useEffect(()=>{
         const token = localStorage.getItem("Token")
-        axios.get('http://localhost:5000/api/v1/readPackageName', {
+        axios.get('https://vast-journey-49790.herokuapp.com/api/v1/readPackageName', {
 
             headers: {
                 'token-key': `${token}`
@@ -90,7 +90,7 @@ const EditMembership = () => {
                 cogoToast.error(`${error.message}`);
             })
 
-        axios.get('http://localhost:5000/api/v1/readMemberName', {
+        axios.get('https://vast-journey-49790.herokuapp.com/api/v1/readMemberName', {
             headers: {'token-key': `${token}`}
         }).then(function (response) {
                 setMemberName(response.data.data)
@@ -98,7 +98,7 @@ const EditMembership = () => {
             .catch(function (error) {
                 cogoToast.error(`${error.message}`);
             })
-        axios.get('http://localhost:5000/api/v1/readTrainersName', {
+        axios.get('https://vast-journey-49790.herokuapp.com/api/v1/readTrainersName', {
             headers: {'token-key': `${token}`}
         }).then(function (response) {
                 setTrainerName(response.data.data)
@@ -107,7 +107,7 @@ const EditMembership = () => {
                 cogoToast.error(`${error.message}`);
             })
 
-        axios.post('http://localhost:5000/api/v1/readmembershipById', 
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/readmembershipById', 
             {
                 id:id
             }
@@ -139,7 +139,7 @@ const EditMembership = () => {
             ...values,
             id:id
         }
-        axios.post('http://localhost:5000/api/v1/updateMembership', 
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/updateMembership', 
         newValues
         , {
             headers: {

@@ -68,7 +68,7 @@ const AddSchedule = () => {
         const token = localStorage.getItem("Token")
 
 
-        axios.get('http://localhost:5000/api/v1/readMemberName', {
+        axios.get('https://vast-journey-49790.herokuapp.com/api/v1/readMemberName', {
             headers: { 'token-key': `${token}` }
         }).then(function (response) {
             setMemberName(response.data.data)
@@ -81,7 +81,7 @@ const AddSchedule = () => {
     const onFinish = (values) => {
         console.log(values);
         const token = localStorage.getItem("Token")
-        axios.post('http://localhost:5000/api/v1/createSchedule',
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/createSchedule',
             values
             , {
                 headers: {

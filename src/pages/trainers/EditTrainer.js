@@ -69,7 +69,7 @@ const EditTrainer = () => {
     let { id } = useParams();
     useEffect(()=>{
         const token = localStorage.getItem("Token")
-        axios.post('http://localhost:5000/api/v1/readTrainerById', 
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/readTrainerById', 
             {
                 id:id
             }
@@ -101,7 +101,7 @@ const EditTrainer = () => {
             id:id
         }
         // console.log(newValues);
-        axios.post('http://localhost:5000/api/v1/updateTrainer', 
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/updateTrainer', 
         newValues
         , {
             headers: {

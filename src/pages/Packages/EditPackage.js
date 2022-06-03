@@ -69,7 +69,7 @@ const EditPackage = () => {
     let { id } = useParams();
     useEffect(()=>{
         const token = localStorage.getItem("Token")
-        axios.post('http://localhost:5000/api/v1/readPackageById', 
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/readPackageById', 
             {
                 id:id
             }
@@ -98,7 +98,7 @@ const EditPackage = () => {
             ...values,
             id:id
         }
-        axios.post('http://localhost:5000/api/v1/updatePackage', 
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/updatePackage', 
         newValues
         , {
             headers: {

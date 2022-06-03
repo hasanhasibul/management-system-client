@@ -15,7 +15,7 @@ const AllTrainers = () => {
     const [loading,setLoading] = useState(true)
     useEffect(() => {
         const token = localStorage.getItem("Token")
-        axios.get('http://localhost:5000/api/v1/readTrainers', {
+        axios.get('https://vast-journey-49790.herokuapp.com/api/v1/readTrainers', {
             headers: {
                 'token-key': `${token}`
             }
@@ -32,7 +32,7 @@ const AllTrainers = () => {
     //     setLoading(true)
     //     const token = localStorage.getItem("Token")
 
-    //     axios.post('http://localhost:5000/api/v1/deleteTrainer', 
+    //     axios.post('https://vast-journey-49790.herokuapp.com/api/v1/deleteTrainer', 
     //         {
     //             id:id
     //         }
@@ -62,7 +62,7 @@ const AllTrainers = () => {
             onOk() {
         const token = localStorage.getItem("Token")
 
-        axios.post('http://localhost:5000/api/v1/deleteTrainer', 
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/deleteTrainer', 
             {
                 id:id
             }

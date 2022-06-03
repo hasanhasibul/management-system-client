@@ -68,7 +68,7 @@ const Registration = () => {
     const [form] = Form.useForm();
 
     const onFinish = (values) => {
-        axios.post('http://localhost:5000/api/v1/createUser', values)
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/createUser', values)
             .then(function (response) {
                 cogoToast.success(`${response.data.status}`);
             })

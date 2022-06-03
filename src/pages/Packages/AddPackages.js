@@ -63,7 +63,7 @@ const AddPackages = () => {
     const onFinish = (values) => {
         const token = localStorage.getItem("Token")
         console.log(values);
-        axios.post('http://localhost:5000/api/v1/createPackage', 
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/createPackage', 
             values
         , {
             headers: {

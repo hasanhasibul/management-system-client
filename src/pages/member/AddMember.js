@@ -68,7 +68,7 @@ const AddMember = () => {
     const onFinish = (values) => {
         const token = localStorage.getItem("Token")
 
-        axios.post('http://localhost:5000/api/v1/createMember', 
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/createMember', 
             values
         , {
             headers: {

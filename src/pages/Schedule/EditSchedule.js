@@ -32,7 +32,7 @@ const EditSchedule = () => {
     const navigate = useNavigate();
     useEffect(() => {
         const token = localStorage.getItem("Token")
-        axios.get('http://localhost:5000/api/v1/readMemberName', {
+        axios.get('https://vast-journey-49790.herokuapp.com/api/v1/readMemberName', {
             headers: { 'token-key': `${token}` }
         }).then(function (response) {
             setMemberName(response.data.data)
@@ -41,7 +41,7 @@ const EditSchedule = () => {
                 cogoToast.error(`${error.message}`);
             })
 
-        axios.post('http://localhost:5000/api/v1/readScheduleById',
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/readScheduleById',
             {
                 id: id
             }
@@ -69,7 +69,7 @@ const EditSchedule = () => {
             ...values,
             id: id
         }
-        axios.post('http://localhost:5000/api/v1/updateSchedule',
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/updateSchedule',
             newValues
             , {
                 headers: {
