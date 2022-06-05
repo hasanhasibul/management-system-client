@@ -16,6 +16,7 @@ import axios from 'axios';
 import cogoToast from 'cogo-toast';
 import { useParams } from 'react-router-dom';
 import Spinner from '../../Componants/Spinner';
+import { useNavigate } from 'react-router-dom';
 const { Option } = Select;
 
 const residences = [
@@ -69,6 +70,7 @@ const EditMember = () => {
     const [loading,setLoading] = useState(true)
     const [updateMember,setEditMember] = useState([])
     let { id } = useParams();
+    const navigate = useNavigate()
     useEffect(()=>{
         setLoading(true)
         const token = localStorage.getItem("Token")
@@ -98,14 +100,13 @@ const EditMember = () => {
             });
     },[])
     const onFinish = (values) => {
-        setLoading(true)
+        
         const token = localStorage.getItem("Token")
         
         const newValues = {
             ...values,
             id:id
         }
-        // console.log(newValues);
         axios.post('https://vast-journey-49790.herokuapp.com/api/v1/updateMember', 
         newValues
         , {
@@ -114,13 +115,16 @@ const EditMember = () => {
             }
         })
             .then(function (response) {
-                setLoading(true)
-                cogoToast.success(`${response.data.status}`);
+                cogoToast.loading('Updating...').then(()=>{
+                    cogoToast.success("Updating Success");
+                    navigate('/allMembers')
+                })
+                
                 
             })
             .catch(function (error) {
-                setLoading(true)
                 cogoToast.error(`${error.message}`);
+                setLoading(false)
             });
 
 

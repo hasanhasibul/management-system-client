@@ -9,13 +9,13 @@ import Spinner from './../../Componants/Spinner';
 
 const { confirm } = Modal;
 
-const AllTrainers = () => {
+const AllPlan = () => {
     const nagivate = useNavigate()
     const [member, setMember] = useState([])
     const [loading,setLoading] = useState(true)
     useEffect(() => {
         const token = localStorage.getItem("Token")
-        axios.get('https://vast-journey-49790.herokuapp.com/api/v1/readTrainers', {
+        axios.get('https://vast-journey-49790.herokuapp.com/api/v1/readPlan', {
             headers: {
                 'token-key': `${token}`
             }
@@ -28,19 +28,19 @@ const AllTrainers = () => {
                 cogoToast.error(`${error.message}`);
             });
     }, [])
-    
+
     const showDeleteConfirm = (id) => {
         confirm({
             title: 'Are you sure delete this task?',
             icon: <ExclamationCircleOutlined />,
-            content: '',
+            content: 'Some descriptions',
             okText: 'Yes',
             okType: 'danger',
             cancelText: 'No',
             onOk() {
         const token = localStorage.getItem("Token")
 
-        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/deleteTrainer', 
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/deletePlan', 
             {
                 id:id
             }
@@ -50,9 +50,9 @@ const AllTrainers = () => {
             }
         })
             .then(function (response) {
-
+               
                 cogoToast.loading("Deleting...").then(()=>{
-                    cogoToast.success(`Trainer Deleted Success`);
+                    cogoToast.success(` Deleting Success`);
                     nagivate(0)
                 })
             })
@@ -69,34 +69,27 @@ const AllTrainers = () => {
     return (
         <DefaultLayout>
             {
-                loading ? <Spinner/> :
+                loading ? <Spinner/> : 
                 member.length ? <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">Sr No.</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Contact</th>
-                        <th scope="col">Rate</th>
-                        <th scope="col">Gender</th>
+                        <th scope="col">Plan Type</th>
+                        <th scope="col">Amount</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    {
-                        member.map((mr,index)=>
+                    { member.map((mr,index)=>
                             <tr key={mr._id} >
                             <th scope="row">{index}</th>
-                            <td>{mr.name}</td>
-                            <td>{mr.email}</td>
-                            <td>{mr.contact}</td>
-                            <td>{mr.rate}</td>
-                            <td>{mr.gender}</td>
+                            <td>{mr.planType}</td>
+                            <td>{mr.amount}</td>
                             <td> 
 
                             <Button type="primary" >
-                                        <Link to={`/editTrainer/${mr._id}`} >Edit</Link>
+                                        <Link to={`/allPlan/${mr._id}`} >Edit</Link>
                                     </Button>
     
                                     <Button style={{marginLeft:'7px'}} onClick={()=>showDeleteConfirm(mr._id)} type="primary" danger  >
@@ -107,11 +100,13 @@ const AllTrainers = () => {
                         </tr>
                         )
                     }
+
+
                 </tbody>
-            </table> : <div className="spinner"> <h4>Trainer Not Found</h4> </div>
+            </table> : <div className="spinner"> <h4>Plan Not Found</h4> </div>
             }
         </DefaultLayout>
     );
 };
 
-export default AllTrainers;
+export default AllPlan;

@@ -19,6 +19,9 @@ import EditMembership from './pages/MembershipAsign/EditMembership';
 import AddSchedule from './pages/Schedule/AddSchedule';
 import AllSchedule from './pages/Schedule/AllSchedule';
 import EditSchedule from './pages/Schedule/EditSchedule';
+import AddPlan from './pages/Plan/AddPlan';
+import AllPlan from './pages/Plan/AllPlan';
+import EditPlan from './pages/Plan/EditPlan';
 
 const App = () => {
   return (
@@ -45,6 +48,10 @@ const App = () => {
           <Route path="allSchedule" element={<AllSchedule />} />
           
           <Route path="allSchedule/:id" element={<EditSchedule />} />
+
+          <Route path="addPlan" element={<AddPlan />} />
+          <Route path="allPlan" element={<AllPlan />} />
+          <Route path="allPlan/:id" element={<EditPlan />} />
         </Route>
 
       </Routes>

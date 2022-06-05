@@ -3,13 +3,7 @@ import {
     Form,
     Input,
     InputNumber,
-    Cascader,
-    Select,
-    Row,
-    Col,
-    Checkbox,
     Button,
-    AutoComplete,
 } from 'antd';
 import DefaultLayout from './../../Componants/DefauldLayout/DefaultLayout';
 import axios from 'axios';
@@ -29,14 +23,14 @@ const formItemLayout = {
     },
 };
 
-const EditPackage = () => {
+const EditPlan = () => {
     const [form] = Form.useForm();
     let { id } = useParams();
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate()
     useEffect(() => {
         const token = localStorage.getItem("Token")
-        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/readPackageById',
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/readPlanById',
             {
                 id: id
             }
@@ -47,8 +41,7 @@ const EditPackage = () => {
             })
             .then(function (response) {
                 form.setFieldsValue({
-                    packageName: response.data.data[0].packageName,
-                    description: response.data.data[0].description,
+                    planType: response.data.data[0].planType,
                     amount: response.data.data[0].amount
                 });
                 setLoading(false)
@@ -64,7 +57,7 @@ const EditPackage = () => {
             ...values,
             id: id
         }
-        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/updatePackage',
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/updatePlan',
             newValues
             , {
                 headers: {
@@ -105,8 +98,8 @@ const EditPackage = () => {
                         scrollToFirstError
                     >
                         <Form.Item
-                            name="packageName"
-                            label="Package Name"
+                            name="planType"
+                            label="PlanType"
                             rules={[{ required: true, message: 'Please input your First name!', whitespace: false }]}
                         >
                             <Input />
@@ -120,14 +113,6 @@ const EditPackage = () => {
                             <InputNumber style={{ width: '100%' }} />
                         </Form.Item>
 
-                        <Form.Item
-                            name="description"
-                            label="Description"
-                            rules={[{ required: true, message: 'Please input your First name!', whitespace: false }]}
-                        >
-                            <Input />
-                        </Form.Item>
-
                         <Form.Item >
                             <Button type="primary" htmlType="submit">
                                 Update Package
@@ -139,4 +124,4 @@ const EditPackage = () => {
     );
 };
 
-export default EditPackage;
+export default EditPlan;

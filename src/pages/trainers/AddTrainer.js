@@ -3,53 +3,14 @@ import {
     Form,
     Input,
     InputNumber,
-    Cascader,
     Select,
-    Row,
-    Col,
-    Checkbox,
     Button,
-    AutoComplete,
 } from 'antd';
 import DefaultLayout from './../../Componants/DefauldLayout/DefaultLayout';
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
+import { useNavigate } from 'react-router-dom';
 const { Option } = Select;
-
-const residences = [
-    {
-        value: 'zhejiang',
-        label: 'Zhejiang',
-        children: [
-            {
-                value: 'hangzhou',
-                label: 'Hangzhou',
-                children: [
-                    {
-                        value: 'xihu',
-                        label: 'West Lake',
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        value: 'jiangsu',
-        label: 'Jiangsu',
-        children: [
-            {
-                value: 'nanjing',
-                label: 'Nanjing',
-                children: [
-                    {
-                        value: 'zhonghuamen',
-                        label: 'Zhong Hua Men',
-                    },
-                ],
-            },
-        ],
-    },
-];
 
 const formItemLayout = {
     labelCol: {
@@ -64,10 +25,9 @@ const formItemLayout = {
 
 const AddTrainer = () => {
     const [form] = Form.useForm();
-
+    const navigate = useNavigate()
     const onFinish = (values) => {
         const token = localStorage.getItem("Token")
-        console.log(values);
         axios.post('https://vast-journey-49790.herokuapp.com/api/v1/createTrainer', 
             values
         , {
@@ -76,7 +36,11 @@ const AddTrainer = () => {
             }
         })
             .then(function (response) {
-                cogoToast.success(`${response.data.status}`);
+                cogoToast.loading("Loading...").then(()=>{
+                    cogoToast.success(`Trainer added Success`);
+                    navigate('/allTrainer')
+                })
+                
             })
             .catch(function (error) {
                 cogoToast.error(`${error.message}`);
@@ -120,8 +84,8 @@ const AddTrainer = () => {
 
                 <Form.Item
                     name="rate"
-                    label="rate"
-                    rules={[{ type: 'number', required: true, message: 'Please input your address!', whitespace: false }]}
+                    label="Rate"
+                    rules={[{ type: 'number', required: true, message: 'Please input your Rate!', whitespace: false }]}
                 >
                      <InputNumber style={{ width: '100%' }} />
                 </Form.Item>

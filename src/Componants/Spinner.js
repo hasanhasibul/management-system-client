@@ -3,7 +3,7 @@ import React from 'react';
 
 const Spinner = () => {
     return (
-        <div>
+        <div className='spinner' >
             <Space size="middle">
                 <Spin size="large" />
             </Space>

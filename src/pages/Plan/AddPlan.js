@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Form,
     Input,
@@ -22,12 +22,12 @@ const formItemLayout = {
     },
 };
 
-const AddPackages = () => {
+const AddPlan = () => {
     const [form] = Form.useForm();
     const navigate =  useNavigate()
     const onFinish = (values) => {
         const token = localStorage.getItem("Token")
-        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/createPackage', 
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/createPlan', 
             values
         , {
             headers: {
@@ -37,7 +37,7 @@ const AddPackages = () => {
             .then(function (response) {
                 cogoToast.loading("Loading...").then(()=>{
                     cogoToast.success(`Package added Success`);
-                    navigate('/allPackage')
+                    navigate('/allPlan')
                 })
             })
             .catch(function (error) {
@@ -64,8 +64,8 @@ const AddPackages = () => {
                 scrollToFirstError
             >
                 <Form.Item
-                    name="packageName"
-                    label="Package Name"
+                    name="planType"
+                    label="planType"
                     rules={[{ required: true, message: 'Please input your First name!', whitespace: false }]}
                 >
                     <Input />
@@ -79,17 +79,9 @@ const AddPackages = () => {
                      <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
 
-                <Form.Item
-                    name="description"
-                    label="Description"
-                    rules={[{ required: true, message: 'Please input Description!', whitespace: false }]}
-                >
-                    <Input />
-                </Form.Item>
-
                 <Form.Item >
                     <Button type="primary" htmlType="submit">
-                        Add Package
+                        Add Plan
                     </Button>
                 </Form.Item>
             </Form>
@@ -97,4 +89,4 @@ const AddPackages = () => {
     );
 };
 
-export default AddPackages;
+export default AddPlan;

@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import DefaultLayout from '../../Componants/DefauldLayout/DefaultLayout';
 import cogoToast from 'cogo-toast';
 import { Link,useNavigate } from 'react-router-dom';
-import { Spinner } from 'react-bootstrap';
 import { Button,Modal } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import Spinner from './../../Componants/Spinner';
 
 const { confirm } = Modal;
 
@@ -50,9 +50,11 @@ const AllPackages = () => {
             }
         })
             .then(function (response) {
-                cogoToast.success(`${response.data.status}`);
-                nagivate(0)
-                setLoading(false)
+               
+                cogoToast.loading("Deleting...").then(()=>{
+                    cogoToast.success(` Deleting Success`);
+                    nagivate(0)
+                })
             })
             .catch(function (error) {
                 cogoToast.error(`${error.message}`);
@@ -66,7 +68,9 @@ const AllPackages = () => {
     };
     return (
         <DefaultLayout>
-            <table class="table table-bordered">
+            {
+                loading ? <Spinner/> : 
+                member.length ? <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">Sr No.</th>
@@ -78,8 +82,7 @@ const AllPackages = () => {
                 </thead>
                 <tbody>
 
-                    {
-                      loading ? <Spinner/> :  member.map((mr,index)=>
+                    { member.map((mr,index)=>
                             <tr key={mr._id} >
                             <th scope="row">{index}</th>
                             <td>{mr.packageName}</td>
@@ -102,7 +105,8 @@ const AllPackages = () => {
 
 
                 </tbody>
-            </table>
+            </table> : <div className="spinner"> <h4>Package Not Found</h4> </div>
+            }
         </DefaultLayout>
     );
 };

@@ -2,54 +2,14 @@ import React, { useState } from 'react';
 import {
     Form,
     Input,
-    InputNumber,
-    Cascader,
     Select,
-    Row,
-    Col,
-    Checkbox,
-    Button,
-    AutoComplete,
+    Button
 } from 'antd';
 import DefaultLayout from './../../Componants/DefauldLayout/DefaultLayout';
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
+import { useNavigate } from 'react-router-dom';
 const { Option } = Select;
-
-const residences = [
-    {
-        value: 'zhejiang',
-        label: 'Zhejiang',
-        children: [
-            {
-                value: 'hangzhou',
-                label: 'Hangzhou',
-                children: [
-                    {
-                        value: 'xihu',
-                        label: 'West Lake',
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        value: 'jiangsu',
-        label: 'Jiangsu',
-        children: [
-            {
-                value: 'nanjing',
-                label: 'Nanjing',
-                children: [
-                    {
-                        value: 'zhonghuamen',
-                        label: 'Zhong Hua Men',
-                    },
-                ],
-            },
-        ],
-    },
-];
 
 const formItemLayout = {
     labelCol: {
@@ -64,7 +24,7 @@ const formItemLayout = {
 
 const AddMember = () => {
     const [form] = Form.useForm();
-
+    const navigate = useNavigate()
     const onFinish = (values) => {
         const token = localStorage.getItem("Token")
 
@@ -76,7 +36,12 @@ const AddMember = () => {
             }
         })
             .then(function (response) {
-                cogoToast.success(`${response.data.status}`);
+
+                cogoToast.loading('Loading...').then(() => {
+                    cogoToast.success('Member added Successfully');
+                    navigate('/allMembers')
+                  });
+                
             })
             .catch(function (error) {
                 cogoToast.error(`${error.message}`);

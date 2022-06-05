@@ -1,57 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import {
     Form,
-    Input,
-    InputNumber,
-    Cascader,
     Select,
-    Row,
-    Col,
-    Checkbox,
     Button,
-    AutoComplete,
-    DatePicker,
+    DatePicker
 } from 'antd';
 import DefaultLayout from './../../Componants/DefauldLayout/DefaultLayout';
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import Spinner from '../../Componants/Spinner';
 const { Option } = Select;
 
-const residences = [
-    {
-        value: 'zhejiang',
-        label: 'Zhejiang',
-        children: [
-            {
-                value: 'hangzhou',
-                label: 'Hangzhou',
-                children: [
-                    {
-                        value: 'xihu',
-                        label: 'West Lake',
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        value: 'jiangsu',
-        label: 'Jiangsu',
-        children: [
-            {
-                value: 'nanjing',
-                label: 'Nanjing',
-                children: [
-                    {
-                        value: 'zhonghuamen',
-                        label: 'Zhong Hua Men',
-                    },
-                ],
-            },
-        ],
-    },
-];
 
 const formItemLayout = {
     labelCol: {
@@ -66,13 +26,14 @@ const formItemLayout = {
 
 const EditMembership = () => {
     const [form] = Form.useForm();
-    const [updateMember,setEditMember] = useState([])
     const [packageName, setPackageName] = useState([]);
     const [memberName, setMemberName] = useState([]);
     const [trainerName, setTrainerName] = useState([]);
+    const [loading, setLoading] = useState(true);
     let { id } = useParams();
 
-    useEffect(()=>{
+    const navigate = useNavigate()
+    useEffect(() => {
         const token = localStorage.getItem("Token")
         axios.get('https://vast-journey-49790.herokuapp.com/api/v1/readPackageName', {
 
@@ -83,7 +44,6 @@ const EditMembership = () => {
         })
 
             .then(function (response) {
-                console.log(response.data.data);
                 setPackageName(response.data.data)
             })
             .catch(function (error) {
@@ -91,74 +51,78 @@ const EditMembership = () => {
             })
 
         axios.get('https://vast-journey-49790.herokuapp.com/api/v1/readMemberName', {
-            headers: {'token-key': `${token}`}
+            headers: { 'token-key': `${token}` }
         }).then(function (response) {
-                setMemberName(response.data.data)
-            })
+            setMemberName(response.data.data)
+        })
             .catch(function (error) {
                 cogoToast.error(`${error.message}`);
             })
         axios.get('https://vast-journey-49790.herokuapp.com/api/v1/readTrainersName', {
-            headers: {'token-key': `${token}`}
+            headers: { 'token-key': `${token}` }
         }).then(function (response) {
-                setTrainerName(response.data.data)
-            })
+            setTrainerName(response.data.data)
+        })
             .catch(function (error) {
                 cogoToast.error(`${error.message}`);
             })
 
-        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/readmembershipById', 
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/readmembershipById',
             {
-                id:id
+                id: id
             }
-        , {
-            headers: {
-                'token-key': `${token}`
-            }
-        })
+            , {
+                headers: {
+                    'token-key': `${token}`
+                }
+            })
             .then(function (response) {
-                setEditMember(response.data.data)
                 form.setFieldsValue({
                     memberName: response.data.data[0].memberName,
                     planType: response.data.data[0].planType,
                     package: response.data.data[0].package,
                     trainer: response.data.data[0].trainer,
-                    // startDate: response.data.data[0].startDate,
-                    // endDate: response.data.data[0].endDate,
                     status: response.data.data[0].status
-                  });
+                });
             })
             .catch(function (error) {
                 cogoToast.error(`${error.message}`);
             });
-    },[])
+            setLoading(false)
+    }, [])
     const onFinish = (values) => {
         const token = localStorage.getItem("Token")
-        
+
         const newValues = {
             ...values,
-            id:id
+            id: id
         }
-        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/updateMembership', 
-        newValues
-        , {
-            headers: {
-                'token-key': `${token}`
-            }
-        })
+        axios.post('https://vast-journey-49790.herokuapp.com/api/v1/updateMembership',
+            newValues
+            , {
+                headers: {
+                    'token-key': `${token}`
+                }
+            })
             .then(function (response) {
-                cogoToast.success(`${response.data.status}`);
+                cogoToast.loading("Updating...").then(() => {
+                    cogoToast.success(`Updated Success`);
+                    navigate('/allMembership')
+                })
             })
             .catch(function (error) {
                 cogoToast.error(`${error.message}`);
             });
 
 
-        
+
     };
-    
+
     return (
         <DefaultLayout >
+            {
+                loading ? <Spinner/> :
+            
             <Form
                 {...formItemLayout}
                 form={form}
@@ -183,7 +147,7 @@ const EditMembership = () => {
                                 console.log(pk.firstName);
                                 return (
                                     <Option value={pk.firstName}>
-                                        {pk.firstName+" "+pk.lastName}
+                                        {pk.firstName + " " + pk.lastName}
                                     </Option>
                                 );
                             })
@@ -219,7 +183,6 @@ const EditMembership = () => {
                     <Select placeholder="select your package">
                         {
                             packageName.length && packageName.map(pk => {
-                                console.log(pk.packageName);
                                 return (
                                     <Option value={pk.packageName}>
                                         {pk.packageName}
@@ -277,6 +240,7 @@ const EditMembership = () => {
                     </Button>
                 </Form.Item>
             </Form>
+}
         </DefaultLayout>
     );
 };

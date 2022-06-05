@@ -22,6 +22,7 @@ const DefaultLayout = (props) => {
             <Menu.Item key="1">
               <Link to="/">Dashboard</Link>
             </Menu.Item>
+            
             <SubMenu
               key="sub1"
               title={
@@ -89,7 +90,7 @@ const DefaultLayout = (props) => {
               </Menu.Item>
               <Menu.Item key="10">
 
-                <Link to="/allMembership" >all Membership</Link>
+                <Link to="/allMembership" >All Membership</Link>
               </Menu.Item>
     
             </SubMenu>
@@ -108,7 +109,26 @@ const DefaultLayout = (props) => {
               </Menu.Item>
               <Menu.Item key="12">
 
-                <Link to="/allSchedule" >all Schedules</Link>
+                <Link to="/allSchedule" >All Schedules</Link>
+              </Menu.Item>
+    
+            </SubMenu>
+
+            <SubMenu
+              key="sub6"
+              title={
+                <span>
+                  <span>Plan</span>
+                </span>
+              }
+            >
+              <Menu.Item key="13">
+
+                <Link to="/addPlan" >  Add Pan</Link>
+              </Menu.Item>
+              <Menu.Item key="14">
+
+                <Link to="/allPlan" >All Plan</Link>
               </Menu.Item>
     
             </SubMenu>
